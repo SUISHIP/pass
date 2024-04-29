@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no" />
+  <title>Document</title>
+  <style>
+    @media screen and (max-width: 768px) {
+      body {
+        touch-action: pan-x pan-y;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <input type="text" id="text1" placeholder="検証元パスワード" style="width: 95%; border-radius: 0px;"readonly/>
+  <input type="text" id="text2" placeholder="確認用パスワード" style="width: 95%; border-radius: 0px;"readonly />
+  <style>
+    .maru {
+      border-radius: 10%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 120px;
+      height: 120px;
+      background: #6fa1ff;
+      color: #FFF;
+      text-decoration: none;
+      font-size: 50px;
+      text-align: center;
+      margin: 10px 0;
+      display: flex;
+    }
+
+    .wrapper {
+      display: grid;
+      grid-template-columns: 65px 65px 65px;
+      /* 幅3等分 */
+      grid-template-rows: 10px 20px;
+      /* 100pxの2行 */
+      grid-gap: 60px;
+      /* 隙間10px */
+      margin-bottom: 30px;
+    }
+
+    .wrapper>div {
+      border-radius: 5px;
+      background:
+  </style>
+   <style>
+    body {
+      touch-action: pan-x pan-y;
+    }
+  </style>
+  <div class="wrapper">
+    <button class="maru" id="1" onclick="btn_audio();">1</button>
+    <button class="maru" id="2" onclick="btn_audio();">2</button>
+    <button class="maru" id="3" onclick="btn_audio();">3</button>
+  </div>
+  <div class="wrapper">
+    <button class="maru" id="4" onclick="btn_audio();">4</button>
+    <button class="maru" id="5" onclick="btn_audio();">5</button>
+    <button class="maru" id="6" onclick="btn_audio();">6</button>
+  </div>
+  <div class="wrapper">
+    <button class="maru" id="7" onclick="btn_audio();">7</button>
+    <button class="maru" id="8" onclick="btn_audio();">8</button>
+    <button class="maru" id="9" onclick="btn_audio();">9</button>
+  </div>
+  <div class="wrapper">
+    <button class="maru" id="delete" onclick="btn_audio();" style="background: #cc9900;">消</button>
+    <button class="maru" id="0" onclick="btn_audio();">0</button>
+    <button class="maru" id="enter" onclick="btn_audio();" style="background: #cc9900;">決</button>
+  </div>
+  <audio id="btn_audio">
+    <source src="https://dl.dropboxusercontent.com/scl/fi/tdinuouc3wxglh90cbkzp/button.mp3?rlkey=8fxww1j72qevx13b9kdaux4e2" type="audio/mp3">
+  </audio>
+  <script>
+    let selectedInput = null;
+    let savedValue = null;
+    // テキストボックスを選択するイベント
+    document.getElementById('text1').addEventListener('focus', function() {
+      selectedInput = document.getElementById('text1');
+    });
+    document.getElementById('text2').addEventListener('focus', function() {
+      selectedInput = document.getElementById('text2');
+    });
+    // テンキーのボタンを押した時のイベント
+    for (let i = 0; i <= 9; i++) {
+      document.getElementById(i.toString()).addEventListener('click', function() {
+        if (selectedInput) {
+          selectedInput.value += i.toString();
+        }
+      });
+    }
+    // 消すボタンのイベント
+    document.getElementById('delete').addEventListener('click', function() {
+      if (selectedInput) {
+        selectedInput.value = '';
+      }
+    });
+    // 決定ボタンのイベント
+    document.getElementById('enter').addEventListener('click', function() {
+      if (selectedInput === document.getElementById('text1')) {
+        savedValue = document.getElementById('text1').value;
+        alert('保存しました');
+      } else if (selectedInput === document.getElementById('text2')) {
+        if (document.getElementById('text2').value === savedValue) {
+          alert('ロック解除');
+        } else {
+          alert('パスワードが間違っています');
+        }
+      }
+    });
+  </script>
+  <script>
+    function btn_audio() {
+      let audio = document.getElementById('btn_audio');
+      audio.currentTime = 0;
+      audio.play();
+    }
+  </script>
+  <script>
+    document.addEventListener('touchmove', function (event) {
+      if (event.scale !== 1) {
+        event.preventDefault();
+      }
+    }, { passive: false });
+  </script>
+</body>
+
+</html>
